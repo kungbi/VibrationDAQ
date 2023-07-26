@@ -204,7 +204,7 @@ bool setupVibrationSensorModules(const bool &externalTriggerActivated) {
             vibrationSensorModule.activateExternalTrigger();
         }
 
-//        vibrationSensorModule.triggerAutonull();
+       vibrationSensorModule.triggerAutonull();
 //        vibrationSensorModule.restoreFactorySettings();
 
         switch (vibrationSensorConfig.recordingMode) {

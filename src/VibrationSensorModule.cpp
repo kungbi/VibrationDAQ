@@ -296,8 +296,35 @@ namespace vibration_daq {
     }
 
     void VibrationSensorModule::triggerAutonull() const {
-        // autonull
-        write(spi_commands::GLOB_CMD, 0x0001);
+        // Clear autonull correction 
+        write(spi_commands::GLOB_CMD, 0x8000);
+
+        // save to flash
+        write(spi_commands::GLOB_CMD, 0x0040);
+
+        // setting statistic mode
+        LOG_S(INFO) << "setting statistic mode";
+        write(spi_commands::REC_CTRL, 0x1142);
+        sleep_for(200ms);
+
+        // execute sensor
+        LOG_S(INFO) << "start record";
+        write(spi_commands::GLOB_CMD, 0x0800);
+        sleep_for(1000ms);
+
+        // read stat
+        uint16_t x_stat = read(spi_commands::X_STATISTIC);
+        uint16_t y_stat = read(spi_commands::Y_STATISTIC);
+        uint16_t z_stat = read(spi_commands::Z_STATISTIC);
+        LOG_S(INFO) << "x_stat: " << x_stat;
+        LOG_S(INFO) << "y_stat: " << y_stat;
+        LOG_S(INFO) << "z_stat: " << z_stat;
+        sleep_for(200ms);
+
+        write(spi_commands::X_ANULL, x_stat);
+        write(spi_commands::Y_ANULL, y_stat);
+        write(spi_commands::Z_ANULL, z_stat);
+
         // save to flash
         write(spi_commands::GLOB_CMD, 0x0040);
     }
