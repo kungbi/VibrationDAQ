@@ -30,6 +30,8 @@ namespace vibration_daq {
 
         static bool readMTCConfig(const YAML::Node &node, MTCConfig &mtcConfig);
 
+        static bool readRTSConfig(const YAML::Node &node, RTSConfig &rtsConfig);
+
     public:
         /**
          * Setups module, checks if it's yaml file.

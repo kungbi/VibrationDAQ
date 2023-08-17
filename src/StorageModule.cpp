@@ -58,14 +58,20 @@ namespace vibration_daq {
                 dataFile << "Frequency Bin [Hz],x-axis [mg],y-axis [mg],z-axis [mg]" << std::endl;
                 break;
             case RecordingMode::RTS:
-                LOG_S(ERROR) << "RTS mode not supported!";
-                return false;
+                dataFile << "Time [s],x-axis [LSB],y-axis [LSB],z-axis [LSB], temp, status, crc, sequence number" << std::endl;
+                break;
         }
 
-        for (int i = 0; i < vibrationData.xAxis.size(); ++i) {
-            dataFile << vibrationData.stepAxis[i] << "," << vibrationData.xAxis[i] << "," << vibrationData.yAxis[i]
-                     << ","
-                     << vibrationData.zAxis[i] << std::endl;
+        for (int i = 0; i < vibrationData.xAxis.size(); ++i) { // 32,000       1000개
+            if(vibrationData.recordingMode == RecordingMode::RTS){
+                dataFile << vibrationData.stepAxis[i] << "," << vibrationData.xAxis[i] << "," << vibrationData.yAxis[i]
+                        << "," << vibrationData.zAxis[i] << "," << vibrationData.temperature[i/32] 
+                        << "," << vibrationData.status[i/32] << "," << vibrationData.crc[i/32] << "," << vibrationData.sequenceNumber[i/32] << std::endl;
+            }else{
+                dataFile << vibrationData.stepAxis[i] << "," << vibrationData.xAxis[i] << "," << vibrationData.yAxis[i]
+                        << ","
+                        << vibrationData.zAxis[i] << std::endl;
+            }
         }
 
         dataFile.close();

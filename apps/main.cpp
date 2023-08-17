@@ -204,14 +204,18 @@ bool setupVibrationSensorModules(const bool &externalTriggerActivated) {
             vibrationSensorModule.activateExternalTrigger();
         }
 
-       vibrationSensorModule.triggerAutonull();
 //        vibrationSensorModule.restoreFactorySettings();
 
         switch (vibrationSensorConfig.recordingMode) {
+            case RecordingMode::RTS:
+                vibrationSensorModule.activateMode(vibrationSensorConfig.rtsConfig);
+                break;
             case RecordingMode::MFFT:
+                vibrationSensorModule.triggerAutonull();
                 vibrationSensorModule.activateMode(vibrationSensorConfig.mfftConfig);
                 break;
             case RecordingMode::MTC:
+                vibrationSensorModule.triggerAutonull();
                 vibrationSensorModule.activateMode(vibrationSensorConfig.mtcConfig);
                 break;
         }

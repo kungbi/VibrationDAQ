@@ -17,6 +17,10 @@ namespace vibration_daq {
         return (wordBuffer[0] << 8) | wordBuffer[1];
     }
 
+    inline static uint16_t convertRTS(const WordBuffer &wordBuffer)  {
+        return (wordBuffer[1] << 8) | wordBuffer[0];
+    }
+
     inline static std::string getHexString(uint8_t num) {
         char str[6];
         sprintf(str, "0x%02X ", num);
@@ -32,6 +36,12 @@ namespace vibration_daq {
     inline static std::string getHexString(std::array<uint8_t, 2> num) {
         char str[6];
         sprintf(str, "0x%02X%02X ", num[0], num[1]);
+        return str;
+    }
+
+    inline static std::string getHexStringRTS(std::array<uint8_t, 2> num) {
+        char str[6];
+        sprintf(str, "0x%02X%02X ", num[1], num[0]);
         return str;
     }
 }

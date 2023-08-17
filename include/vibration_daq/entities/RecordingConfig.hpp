@@ -17,6 +17,10 @@ namespace vibration_daq {
         std::array<int16_t, 32> customFilterTaps = {};
     };
 
+    struct RTSConfig : RecordingConfig {
+        
+    };
+
     struct MTCConfig : RecordingConfig {
 
     };

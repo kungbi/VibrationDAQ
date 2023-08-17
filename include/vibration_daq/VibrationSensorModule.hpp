@@ -51,8 +51,12 @@ namespace vibration_daq {
         WordBuffer transferBlocking(WordBuffer sendBuf) const;
 
         uint16_t read(SpiCommand cmd) const;
+
+        bool parseRtsData(std::vector<uint16_t> &resp, VibrationData &vibrationData) const;
+        VibrationData readRtsSamplesBuffer(int samplesCount, 
+                                                    const std::function<float(int16_t)> &convertVibrationValue) const;
         std::vector<float> readSamplesBuffer(SpiCommand cmd, int samplesCount,
-                                             const std::function<float(int16_t)>& convertVibrationValue) const;
+                                            const std::function<float(int16_t)>& convertVibrationValue) const;
         int readRecInfoFFTAveragesCount() const;
         int readRecInfoDecimationFactor() const;
 
@@ -91,5 +95,6 @@ namespace vibration_daq {
 
         bool activateMode(const MFFTConfig &mfftConfig);
         bool activateMode(const MTCConfig &mtcConfig);
+        bool activateMode(const RTSConfig &rtsConfig);
     };
 }
