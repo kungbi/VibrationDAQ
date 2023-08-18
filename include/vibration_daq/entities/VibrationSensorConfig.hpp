@@ -6,14 +6,14 @@
 #pragma once
 
 namespace vibration_daq {
-    struct VibrationSensorConfig {
-        std::string name;
-        int busyPin;
-        int resetPin;
-        std::string spiPath;
-        RecordingMode recordingMode;
-        MFFTConfig mfftConfig;
-        MTCConfig mtcConfig;
-        RTSConfig rtsConfig;
-    };
-}
+struct VibrationSensorConfig {
+  std::string name;
+  int busyPin;
+  int resetPin;
+  std::string spiPath;
+  RecordingMode recordingMode;
+  MFFTConfig mfftConfig;
+  MTCConfig mtcConfig;
+  RTSConfig rtsConfig;
+};
+}  // namespace vibration_daq
